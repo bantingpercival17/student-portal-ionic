@@ -2,28 +2,16 @@
     <ion-header>
         <ion-toolbar class="iq-navbar py-lg-0">
             <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-buttons slot="start">
                 <ion-button routerLink="/student-layout/dashboard">
-                    <ion-title class="ms-3">
-                        <span class="font-weight-bold text-primary">Student Portal</span>
+                    <ion-title>
+                        <span class="font-weight-bold text-primary">{{ pageTitle }}</span>
                     </ion-title>
                 </ion-button>
             </ion-buttons>
-            <ion-buttons slot="start">
-                <ion-button @click="opensidebar">
-                    <ion-icon :icon="menu"></ion-icon>
-                </ion-button>
-            </ion-buttons>
-            <ion-breadcrumb class="search-input">
-                <ion-label>{{ pageTitle }}</ion-label>
-            </ion-breadcrumb>
-            <ion-buttons slot="end">
-                <ion-menu-button></ion-menu-button>
-            </ion-buttons>
-            <ion-buttons slot="end">
-                <ion-button @click="toggleNavbar()">
-                    <IonIcon :icon="grid" />
-                </ion-button>
-            </ion-buttons>
+
             <ion-buttons slot="end">
                 <ion-button @click="logOut">
                     Logout

@@ -1,64 +1,54 @@
 <template>
     <div class="main-content">
-      <!--   <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
-        </StudentSideNavigationBar> -->
-        <div class="position-relative">
-            <!-- Nav Start -->
-            <StudentNavigationBar :fullsidebar="sidebarmini" @makefullsidebar="onfullsidebar" :pageTitle="headerTitle">
-            </StudentNavigationBar>
-            <!--    <PageHeader [fullsidebar]="sidebarmini" (makefullsidebar)="onfullsidebar()" [pageTitle]="headerTitle">
-                </PageHeader> -->
-            <!-- Nav End -->
-        </div>
-        <div class="conatiner-fluid content-inner mt-6 py-0">
-            <router-view></router-view>
-        </div>
+        <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
+        </StudentSideNavigationBar>
+        <ion-page id="main-content">
+            <ion-header>
+                <StudentNavigationBar :fullsidebar="sidebarmini" @makefullsidebar="onfullsidebar"
+                    :pageTitle="headerTitle">
+                </StudentNavigationBar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <router-view></router-view>
+            </ion-content>
+        </ion-page>
     </div>
-    <!-- <ion-split-pane content-id="main-content">
-            <ion-menu content-id="main-content" type="overlay">
-                <ion-content>
-                    <ion-list id="inbox-list">
-                        <ion-list-header>Inbox</ion-list-header>
-                        <ion-note>hi@ionicframework.com</ion-note>
 
-                        <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
-                            <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url"
-                                lines="none" :detail="false" class="hydrated"
-                                :class="{ selected: selectedIndex === i }">
-                                <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                                <ion-label>{{ p.title }}</ion-label>
-                            </ion-item>
-                        </ion-menu-toggle>
-                    </ion-list>
-
-                    <ion-list id="labels-list">
-                        <ion-list-header>Labels</ion-list-header>
-
-                        <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-                            <ion-icon aria-hidden="true" slot="start" :ios="bookmarkOutline"
-                                :md="bookmarkSharp"></ion-icon>
-                            <ion-label>{{ label }}</ion-label>
-                        </ion-item>
-                    </ion-list>
-                </ion-content>
-            </ion-menu>
-              <ion-router-outlet></ion-router-outlet>
-        </ion-split-pane> -->
 
 </template>
 <script>
 import StudentNavigationBar from '../widgets/StudentNavigationBar.vue';
 import StudentSideNavigationBar from '../widgets/StudentSideNavigation/StudentSideNavigationBar.vue';
+
+import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon } from '@ionic/vue';
+import { close, grid } from 'ionicons/icons';
 export default {
     name: 'MainLayout',
     components: {
         StudentNavigationBar,
-        StudentSideNavigationBar
+        StudentSideNavigationBar,
+        IonButtons,
+        IonContent,
+        IonHeader,
+        IonMenu,
+        IonMenuButton,
+        IonPage,
+        IonTitle,
+        IonToolbar,
+        IonIcon
     },
     data() {
         return {
+            close,
+            grid,
             sidebarmini: false,
-            user: null
+            user: null,
+            menuOpen: true,
+            menuSide: 'start', // 'start' or 'end', depending on where you want the menu to appear
+            menuContentId: 'main-content',
+            menuSwipeGesture: true,
+
+
         }
     },
     computed: {
@@ -70,6 +60,9 @@ export default {
         }
     },
     methods: {
+        toggleMenu() {
+            this.menuOpen = !this.menuOpen;
+        },
         onsidebarmini(e) {
             this.sidebarmini = e
         },

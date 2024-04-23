@@ -5,12 +5,15 @@ import {
 import {
   clientRoute
 } from './clientRoute'
+import {
+  studentRoute
+} from './student-route.js'
 import store from '../store/index'
 import {
   IS_USER_AUTHENTICATE_GETTER,
   GET_USER_TYPE
 } from '@/store/storeConstants'
-const studentRoute = (prop) => [{
+/* const studentRoute = (prop) => [{
   path: '/student/dashboard',
   name: prop + '.student ',
   meta: {
@@ -19,20 +22,21 @@ const studentRoute = (prop) => [{
     user: 'student'
   },
   component: () => import('../views/Students/Dashboard.vue')
-}]
+}] */
 
 const routes = [{
-  path: '/',
-  name: 'client-layout',
-  component: () => import('@/components/layouts/GuestLayout.vue'),
-  children: clientRoute('client-layout')
-},
-{
-  path: '/student',
-  name: 'student-layout',
-  component: () => import('@/components/layouts/MainLayout.vue'),
-  children: studentRoute('student-layout')
-},]
+    path: '/',
+    name: 'client-layout',
+    component: () => import('@/components/layouts/GuestLayout.vue'),
+    children: clientRoute('client-layout')
+  },
+  {
+    path: '/student',
+    name: 'student-layout',
+    component: () => import('@/components/layouts/MainLayout.vue'),
+    children: studentRoute('student-layout')
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(

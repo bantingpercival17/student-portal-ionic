@@ -1,42 +1,30 @@
 <template>
-    <ion-menu side="start" :class="minisidebar ? 'sidebar-mini' : ''">
-        <ion-header>
+    <ion-menu type="push" content-id="main-content" side="start" :class="minisidebar ? 'sidebar-mini' : ''">
+        <ion-header class="text-center">
             <ion-toolbar>
-                <ion-title>
-                    <router-link to="/student" class="navbar-brand">
-                        <span class="font-weight-bold text-primary"><b>Student Portal</b></span>
-                    </router-link>
-                </ion-title>
-                <div class="sidebar-toggle d-xl-none" data-toggle="sidebar" data-active="true" @click="SidebarMini">
-                    <i class="icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </i>
-                </div>
                 <ion-buttons slot="start">
-                    <ion-button @click="SidebarMini()">
-                        <IonIcon :icon="grid" />
+                    <ion-button routerLink="/student-layout/dashboard">
+                        <ion-title class=" text-center">
+                            <span class="font-weight-bold text-primary">Student Portal</span>
+                        </ion-title>
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
 
-        <div class="sidebar-body pt-0 data-scrollbar">
-            <div class="sidebar-list">
-                <StudentSideNavigationBarItem></StudentSideNavigationBarItem>
+        <ion-content class="content"> <!-- Add the content class here -->
+            <div class="sidebar-body pt-0 data-scrollbar">
+                <div class="sidebar-list">
+                    <StudentSideNavigationBarItem></StudentSideNavigationBarItem>
+                </div>
+                <div class="p-2"></div>
             </div>
-            <div class="p-2"></div>
-        </div>
+        </ion-content>
     </ion-menu>
-
 </template>
 
 <script>
-import { IonHeader, IonToolbar, IonButton, IonButtons, IonMenu, IonMenuButton, IonIcon, IonTitle, IonBreadcrumb, IonLabel } from '@ionic/vue';
+import { IonHeader, IonToolbar, IonButton, IonButtons, IonMenu, IonMenuButton, IonIcon, IonTitle, IonBreadcrumb, IonLabel, IonContent } from '@ionic/vue';
 import StudentSideNavigationBarItem from './StudentSideNavigationBarItem.vue';
 import { grid } from 'ionicons/icons';
 import Scrollbar from 'smooth-scrollbar'
@@ -49,9 +37,10 @@ export default {
     },
     components: {
         IonHeader, IonToolbar, IonButton, IonIcon, IonButtons, IonMenu, IonMenuButton, IonTitle, IonBreadcrumb, IonLabel, StudentSideNavigationBarItem
+        , IonContent
     },
     props: {
-        minisidebar: { type: Boolean, default: false }
+        minisidebar: { type: Boolean, default: true }
     },
     mounted() {
         this.SmoothScrollbar()
