@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content">
+    <ion-split-pane when="(min-width: 40px)" content-id="main-content">
         <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
         </StudentSideNavigationBar>
         <ion-page id="main-content">
@@ -12,15 +12,13 @@
                 <router-view></router-view>
             </ion-content>
         </ion-page>
-    </div>
-
-
+    </ion-split-pane>
 </template>
 <script>
 import StudentNavigationBar from '../widgets/StudentNavigationBar.vue';
 import StudentSideNavigationBar from '../widgets/StudentSideNavigation/StudentSideNavigationBar.vue';
 
-import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon } from '@ionic/vue';
+import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonSplitPane } from '@ionic/vue';
 import { close, grid } from 'ionicons/icons';
 export default {
     name: 'MainLayout',
@@ -35,7 +33,8 @@ export default {
         IonPage,
         IonTitle,
         IonToolbar,
-        IonIcon
+        IonIcon,
+        IonSplitPane
     },
     data() {
         return {
