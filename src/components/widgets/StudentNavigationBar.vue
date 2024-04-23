@@ -10,8 +10,7 @@
             </ion-buttons>
             <ion-buttons slot="start">
                 <ion-button @click="opensidebar">
-                    <!-- <ion-icon :icon="menu"></ion-icon> -->
-                    menu
+                    <ion-icon :icon="menu"></ion-icon>
                 </ion-button>
             </ion-buttons>
             <ion-breadcrumb class="search-input">
@@ -22,8 +21,7 @@
             </ion-buttons>
             <ion-buttons slot="end">
                 <ion-button @click="toggleNavbar()">
-                    menu-outline
-                    <!--  <ion-icon name="menu-outline"></ion-icon> -->
+                    <IonIcon :icon="grid" />
                 </ion-button>
             </ion-buttons>
             <ion-buttons slot="end">
@@ -37,9 +35,17 @@
 
 <script>
 import { IonHeader, IonToolbar, IonButton, IonButtons, IonMenu, IonMenuButton, IonIcon, IonTitle, IonBreadcrumb, IonLabel } from '@ionic/vue';
-import { menu } from 'ionicons/icons';
+import { grid, menu } from 'ionicons/icons';
+import { LOGOUT_ACTION } from '@/store/storeConstants.js'
+import { mapActions } from 'vuex';
 export default {
     name: 'StudentNavigationBar',
+    data() {
+        return {
+            grid,
+            menu
+        }
+    },
     components: {
         IonHeader, IonToolbar, IonButton, IonIcon, IonButtons, IonMenu, IonMenuButton, IonTitle, IonBreadcrumb, IonLabel
     },
@@ -55,9 +61,9 @@ export default {
          })
      }, */
     methods: {
-        /* ...mapActions('auth', {
+        ...mapActions('auth', {
             logout: LOGOUT_ACTION
-        }), */
+        }),
         logOut() {
             this.logout()
             this.$router.replace('/')

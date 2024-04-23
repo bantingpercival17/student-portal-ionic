@@ -17,10 +17,9 @@
                         </svg>
                     </i>
                 </div>
-                 <ion-buttons slot="start">
+                <ion-buttons slot="start">
                     <ion-button @click="SidebarMini()">
-                        menu-outline
-                         <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+                        <IonIcon :icon="grid" />
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
@@ -39,9 +38,15 @@
 <script>
 import { IonHeader, IonToolbar, IonButton, IonButtons, IonMenu, IonMenuButton, IonIcon, IonTitle, IonBreadcrumb, IonLabel } from '@ionic/vue';
 import StudentSideNavigationBarItem from './StudentSideNavigationBarItem.vue';
+import { grid } from 'ionicons/icons';
 import Scrollbar from 'smooth-scrollbar'
 export default {
     name: 'StudentSideNavigationBar',
+    data() {
+        return {
+            grid
+        }
+    },
     components: {
         IonHeader, IonToolbar, IonButton, IonIcon, IonButtons, IonMenu, IonMenuButton, IonTitle, IonBreadcrumb, IonLabel, StudentSideNavigationBarItem
     },

@@ -76,7 +76,7 @@ export const clientRoute = (prop) => [{
             name: 'Student Login',
             user: 'guest'
         },
-        component: () => import('../views/Page/HomeView.vue')
+        component: () => import('../views/Auth/StudentLogin.vue')
     },
     {
         path: '/student/forget-password',

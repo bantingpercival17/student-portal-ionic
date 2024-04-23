@@ -50,12 +50,8 @@
     </div>
 </template>
 <script>
-/* import { mapMutations, mapActions } from 'vuex'
-import { SUCCESS_ALERT, INFO_ALERT, ERROR_ALERT, ENCRYPT_DATA } from '@/store/storeAlertConstants.js'
-import { SHOW_LOADING_MUTATION, APPLICANT_REGISTRATION_ACTION } from '@/store/storeConstants.js' */
-import axios from 'axios'
-import ImageTitleHeader from '@/components/ImageTitleHeader.vue'
 import { IonCard, IonCardContent, IonLabel } from '@ionic/vue'
+import ImageTitleHeader from '@/components/ImageTitleHeader.vue'
 import ApplicationForms from '../../components/widgets/Forms/ApplicationForms.vue'
 export default {
     name: 'AdmissionPage',
@@ -64,93 +60,5 @@ export default {
         ImageTitleHeader,
         ApplicationForms
     },
-    data() {
-        const formData = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            course: '',
-            contactNumber: '',
-            birthday: '',
-            agreement: '',
-            captcha: '',
-            message: 'Check you Email for your Password'
-
-        }
-        return {
-            errors: [],
-            networkError: [],
-            validateClass: '',
-            formData,
-            captchaValue: ''
-        }
-    },
-   /*  mounted() {
-        this.recaptcha()
-        axios.get('checker').then((response) => {
-            console.log(response.data.bot)
-        }).catch((error) => {
-            console.log(error)
-        })
-    }, */
-    methods: {
-        /*  ...mapMutations({
-             showLoading: SHOW_LOADING_MUTATION
-         }),
-         ...mapActions('alert', {
-             successAlert: SUCCESS_ALERT,
-             infoAlert: INFO_ALERT,
-             errorAlert: ERROR_ALERT,
-             encrypt: ENCRYPT_DATA
-         }),
-         ...mapActions('auth', {
-             registration: APPLICANT_REGISTRATION_ACTION
-         }), */
-        async applicantRegister() {
-            this.showLoading(true)
-            this.networkError = []
-            this.errors = []
-            try {
-                await this.registration(this.formData).then(response => {
-                    const message = btoa(response.data.message)
-                    this.$router.push({ path: '/applicant/login', query: { _m: message } })
-                })
-            } catch (error) {
-                this.errorMessage = error
-                if (error.code === 'ERR_NETWORK') {
-                    this.networkError = error
-                    this.errorAlert(error)
-                } else {
-                    if (error.response) {
-                        if (error.response.status === 422) {
-                            this.errors = error.response.data.errors
-                        }
-                    }
-                }
-                this.showLoading(false)
-                this.formData.captcha = ''
-                this.recaptcha()
-            }
-            this.showLoading(false)
-        },
-        async recaptcha() {
-            this.captchaValue = ''
-            axios.get('form-recaptcha').then((response) => {
-                this.captchaValue = response.data.captcha
-            }).catch((error) => {
-                console.log(error)
-            })
-        }
-    }
 }
 </script>
-<style scope>
-.admission-banner {
-    background-image: url('~@/assets/admission-banner.png');
-    background-repeat: no-repeat;
-    width: 100%;
-    text-align: center;
-    background-color: rgba(44, 203, 23, 0.5);
-    height: 40vh;
-}
-</style>

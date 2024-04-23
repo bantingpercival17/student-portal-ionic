@@ -6,5 +6,5 @@ export const authRoute = (prop) => [{
         name: 'Login',
         user: 'guest'
     },
-    component: () => import('../views/Auth/Login.vue')
+    component: () => import('../views/Auth/StudentLogin.vue')
 }]

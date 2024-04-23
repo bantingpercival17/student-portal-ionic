@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
-        <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
-        </StudentSideNavigationBar>
+      <!--   <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
+        </StudentSideNavigationBar> -->
         <div class="position-relative">
             <!-- Nav Start -->
             <StudentNavigationBar :fullsidebar="sidebarmini" @makefullsidebar="onfullsidebar" :pageTitle="headerTitle">
