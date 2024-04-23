@@ -13,29 +13,50 @@ import {
   IS_USER_AUTHENTICATE_GETTER,
   GET_USER_TYPE
 } from '@/store/storeConstants'
-/* const studentRoute = (prop) => [{
-  path: '/student/dashboard',
-  name: prop + '.student ',
-  meta: {
-    auth: false,
-    name: 'Dashboard',
-    user: 'student'
-  },
-  component: () => import('../views/Students/Dashboard.vue')
-}] */
 
+
+const authRoute = (prop) => [{
+    path: '/',
+    redirect: '/login'
+  }, {
+    path: '/login', // Keep only one route pointing to the login component
+    name: prop + '.login',
+    meta: {
+      auth: false,
+      name: 'Login',
+      user: 'guest'
+    },
+    component: () => import('../views/Auth/StudentLogin.vue')
+  },
+  {
+    path: 'forget-password',
+    name: prop + '.student-forget-password',
+    meta: {
+      auth: false,
+      name: 'Student Forget Password',
+      user: 'guest'
+    },
+    component: () => import('../views/Page/HomeView.vue')
+  },
+]
 const routes = [{
     path: '/',
     name: 'client-layout',
-    component: () => import('@/components/layouts/GuestLayout.vue'),
-    children: clientRoute('client-layout')
+    component: () => import('@/components/layouts/AuthLayout.vue'),
+    children: authRoute('client-layout')
   },
-  {
-    path: '/student',
-    name: 'student-layout',
-    component: () => import('@/components/layouts/MainLayout.vue'),
-    children: studentRoute('student-layout')
-  },
+  /*  {
+     path: '/',
+     name: 'client-layout',
+     component: () => import('@/components/layouts/GuestLayout.vue'),
+     children: clientRoute('client-layout')
+   },
+   {
+     path: '/student',
+     name: 'student-layout',
+     component: () => import('@/components/layouts/MainLayout.vue'),
+     children: studentRoute('student-layout')
+   }, */
 ]
 
 const router = createRouter({
