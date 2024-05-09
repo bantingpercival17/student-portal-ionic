@@ -1,5 +1,6 @@
 <template>
-    <ion-menu type="push" content-id="main-content" side="start" :class="minisidebar ? 'sidebar-mini' : ''">
+    <ion-menu style="width: fit-content;" type="push" content-id="main-content" side="start"
+        :class="minisidebar ? 'sidebar-mini' : ''">
         <ion-header class="text-center">
             <ion-toolbar>
                 <ion-buttons slot="start">

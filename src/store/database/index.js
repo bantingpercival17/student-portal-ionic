@@ -1,30 +1,31 @@
-import { openDB } from 'idb'
+import {
+  INITIALIZE_DATABASE,
+  CREATE_TABLE,
+  SET_DATABASE
+} from '@/store/storeDatabaseConstants.js'
+import {
+  alertController
+} from '@ionic/vue';
+export default {
+  name: 'database',
+  namespaced: true,
+  state: {
+    database: null
+  },
+  mutations: {
+    [SET_DATABASE](state, database) {
 
-const dbName = 'bma-database'
-const storeName = 'store/database'
-
-const dbPromise = openDB(dbName, 1, {
-  upgrade(db) {
-    if (!db.objectStoreNames.contains(storeName)) {
-      db.createObjectStore(storeName)
+    }
+  },
+  actions: {
+    async [INITIALLIZE_DATABASE]({commit}) {
+      try {
+        const database = await sqlite.createConnection("bma_reviewer", false, "no-encryption");
+        await database.open();
+        commit('setDatabase', database);
+      } catch (error) {
+        console.error('Error initializing database:', error);
+      }
     }
   }
-})
-
-export default dbPromise
-
-async function getData(key) {
-  const db = await dbPromise
-  const tx = db.transaction(storeName, 'readonly')
-  const store = tx.objectStore(storeName)
-  return store.get(key)
-}
-
-async function putData(key, value) {
-  const db = await dbPromise
-  console.log('jsson save')
-  const tx = db.transaction(storeName, 'readwrite')
-  const store = tx.objectStore(storeName)
-  store.put(value, key)
-  return tx.complete
 }

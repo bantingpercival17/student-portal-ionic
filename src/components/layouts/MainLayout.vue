@@ -1,5 +1,5 @@
 <template>
-    <ion-split-pane when="(min-width: 40px)" content-id="main-content">
+    <ion-split-pane when="(min-width: 500px)" content-id="main-content">
         <StudentSideNavigationBar :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
         </StudentSideNavigationBar>
         <ion-page id="main-content">

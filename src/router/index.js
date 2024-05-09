@@ -1,6 +1,7 @@
 import {
   createRouter,
-  createWebHistory
+  createWebHistory,
+  createWebHashHistory
 } from '@ionic/vue-router';
 import {
   clientRoute
@@ -11,9 +12,10 @@ import {
 import store from '../store/index'
 import {
   IS_USER_AUTHENTICATE_GETTER,
-  GET_USER_TYPE
+  GET_USER_TYPE,
+  AUTO_LOGIN_ACTION
 } from '@/store/storeConstants'
-
+store.dispatch(`auth/${AUTO_LOGIN_ACTION}`)
 
 const authRoute = (prop) => [{
     path: '/',
@@ -39,13 +41,13 @@ const authRoute = (prop) => [{
     component: () => import('../views/Page/HomeView.vue')
   },
 ]
-const routes = [{
+const routes = [/* {
     path: '/',
     name: 'client-layout',
     component: () => import('@/components/layouts/AuthLayout.vue'),
     children: authRoute('client-layout')
-  },
-  /*  {
+  }, */
+   {
      path: '/',
      name: 'client-layout',
      component: () => import('@/components/layouts/GuestLayout.vue'),
@@ -56,12 +58,12 @@ const routes = [{
      name: 'student-layout',
      component: () => import('@/components/layouts/MainLayout.vue'),
      children: studentRoute('student-layout')
-   }, */
+   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(
-    import.meta.env.BASE_URL),
+  //history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes
 })
 

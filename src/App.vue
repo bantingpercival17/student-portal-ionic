@@ -18,7 +18,7 @@ export default {
     IonApp, IonContent
   },
   created() {
-    this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`)
+    //this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`)
     console.log(this.isAuth)
 
   }, computed: {

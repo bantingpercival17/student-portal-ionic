@@ -167,83 +167,84 @@ export const studentRoute = (prop) => [{
        user: 'student'
      },
      component: () => import('../views/student/onboard/OnboardProfile.vue')
-   },
-   {
-     path: '/student/classroom',
-     name: prop + '.subjects-view',
-     meta: {
-       auth: true,
-       name: 'Subject List',
-       user: 'student'
-     },
-     component: () => import('../views/student/classroom/SubjectListView.vue')
-   },
-   {
-     path: '/student/classroom/view/:subject',
-     name: prop + '.subject-view-subject',
-     meta: {
-       auth: true,
-       name: 'Subject View',
-       user: 'student'
-     },
-     component: () => import('../views/student/classroom/SubjectsView.vue')
-   },
-   {
-     path: '/student/classroom/view/:subject/topic/:lesson',
-     name: prop + '.subject-view-lesson',
-     meta: {
-       auth: true,
-       name: 'Lesson View',
-       user: 'student'
-     },
-     component: () => import('../views/student/classroom/LessonView.vue')
-   },
-   {
-     path: '/student/classroom/semestral-grades',
-     name: prop + '.semestral-grade-view',
-     meta: {
-       auth: true,
-       name: 'Semestral Grade',
-       user: 'student'
-     },
-     component: () => import('../views/student/classroom/SemestralGradeView.vue')
-   },
-   {
-     path: '/student/update-information',
-     name: prop + '.update-information',
-     meta: {
-       auth: true,
-       name: 'Student Update Information',
-       user: 'student'
-     },
-     component: () => import('../views/student/enrollment/components/registration-form.vue')
-   },
-   {
-     path: '/student/comprehesive-examination',
-     name: prop + '.comprehesive-examination',
-     meta: {
-       auth: true,
-       name: 'Comprehensive Examination',
-       user: 'student'
-     },
-     component: () => import('@/views/student/comprehensive-examination/ComprehensiveView.vue')
-   }, {
-     path: '/student/comprehesive-examination/view',
-     name: prop + '.comprehesive-examination-view',
-     meta: {
-       auth: true,
-       name: 'Comprehensive Examination',
-       user: 'student'
-     },
-     component: () => import('@/views/student/comprehensive-examination/ExaminationView.vue')
-   }, {
-     path: '/student/bma-applications',
-     name: prop + '.mobile-applications',
-     meta: {
-       auth: true,
-       name: 'BMA App',
-       user: 'student'
-     },
-     component: () => import('@/views/student/MobileApplicationView.vue')
-   } */
+   },*/
+  {
+    path: '/student/classroom',
+    name: prop + '.subjects-view',
+    meta: {
+      auth: true,
+      name: 'Subject List',
+      user: 'student'
+    },
+    component: () => import('../views/Students/Classroom/SubjectListView.vue')
+  },
+  {
+    path: '/student/classroom/view/:subject',
+    name: prop + '.subject-view-subject',
+    meta: {
+      auth: true,
+      name: 'Subject View',
+      user: 'student'
+    },
+    component: () => import('../views/Students/Classroom/SubjectsView.vue')
+  },
+  {
+    path: '/student/classroom/view/:subject/topic/:lesson',
+    name: prop + '.subject-view-lesson',
+    meta: {
+      auth: true,
+      name: 'Lesson View',
+      user: 'student'
+    },
+    component: () => import('../views/Students/Classroom/LessonView.vue')
+  },
+  /*
+  {
+    path: '/student/classroom/semestral-grades',
+    name: prop + '.semestral-grade-view',
+    meta: {
+      auth: true,
+      name: 'Semestral Grade',
+      user: 'student'
+    },
+    component: () => import('../views/student/classroom/SemestralGradeView.vue')
+  },
+  {
+    path: '/student/update-information',
+    name: prop + '.update-information',
+    meta: {
+      auth: true,
+      name: 'Student Update Information',
+      user: 'student'
+    },
+    component: () => import('../views/student/enrollment/components/registration-form.vue')
+  },
+  {
+    path: '/student/comprehesive-examination',
+    name: prop + '.comprehesive-examination',
+    meta: {
+      auth: true,
+      name: 'Comprehensive Examination',
+      user: 'student'
+    },
+    component: () => import('@/views/student/comprehensive-examination/ComprehensiveView.vue')
+  }, {
+    path: '/student/comprehesive-examination/view',
+    name: prop + '.comprehesive-examination-view',
+    meta: {
+      auth: true,
+      name: 'Comprehensive Examination',
+      user: 'student'
+    },
+    component: () => import('@/views/student/comprehensive-examination/ExaminationView.vue')
+  }, {
+    path: '/student/bma-applications',
+    name: prop + '.mobile-applications',
+    meta: {
+      auth: true,
+      name: 'BMA App',
+      user: 'student'
+    },
+    component: () => import('@/views/student/MobileApplicationView.vue')
+  } */
 ]

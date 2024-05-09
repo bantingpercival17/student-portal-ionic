@@ -30,8 +30,8 @@ import './registerServiceWorker'
 import './theme/variables.css';
 import axiosInstance from './axios';
 const app = createApp(App)
-  .use(store)
   .use(IonicVue)
+  .use(store)
   .use(router);
 
 router.isReady().then(() => {
