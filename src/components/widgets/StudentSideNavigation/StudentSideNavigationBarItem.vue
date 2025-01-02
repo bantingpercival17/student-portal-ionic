@@ -32,10 +32,10 @@ export default {
     },
     data() {
         const dashboard = [
-            { name: 'Profile', url: 'student-layout.dashboard' }
+            { name: 'Profile', url: 'student-layout.home' }
         ]
         const classroom = [
-            { name: 'Subjects', url: 'student-layout.subjects-view' },
+            { name: 'Subjects', url: 'student-layout.classroom' },
             { name: 'Semestral Grade', url: null }
         ]
         const enrollment = [

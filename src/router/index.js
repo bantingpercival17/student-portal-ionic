@@ -23,7 +23,7 @@ const routes = [
     {
         path: '/student',
         name: 'student-layout',
-        component: () => import('@/components/layouts/MainLayout.vue'),
+        component: () => import('@/components/widgets/BottomTabs.vue'),
         children: studentRoute('student-layout'),
     },
     {
@@ -31,6 +31,7 @@ const routes = [
         name: 'error-layout',
         component: () => import('@/views/ErrorPage/404.vue'),
     },
+    { path: '/:pathMatch(.*)*', redirect: '/error' }
 ];
 
 // Create router
@@ -53,7 +54,7 @@ router.beforeEach((to, from, next) => {
         const isAuthType = store.getters[`auth/${GET_USER_TYPE}`];
 
         // Update document title
-        document.title = `${to.meta.name || 'Default Title'} - Baliwag Maritime Academy, Inc.`;
+        document.title = `${to.meta.name} - Baliwag Maritime Academy, Inc.`;
         console.log(isAuthType)
         // Authenticated user navigation
         /* if (isAuth) {

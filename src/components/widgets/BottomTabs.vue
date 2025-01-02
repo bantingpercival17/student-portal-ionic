@@ -2,28 +2,14 @@
     <ion-tabs>
         <ion-router-outlet></ion-router-outlet>
         <ion-tab-bar slot="bottom" class="tab-bar">
-            <ion-tab-button :href="item.link" v-for="(item, index) in items" :key="index" :tabindex="index">
+            <ion-tab-button v-for="(item, index) in items" :key="index" :tab="item.tab" :href="item.link">
                 <ion-icon :icon="item.icon" />
                 <ion-label>{{ item.name }}</ion-label>
             </ion-tab-button>
-
-            <!--  <ion-tab-button tab="tab1" href="/tabs/tab1">
-                <ion-icon :icon="triangle" />
-                <ion-label>Tab 1</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="tab2" href="/tabs/tab2">
-                <ion-icon :icon="ellipse" />
-                <ion-label>Tab 2</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="tab3" href="/tabs/tab3">
-                <ion-icon :icon="square" />
-                <ion-label>Tab 3</ion-label>
-            </ion-tab-button> -->
         </ion-tab-bar>
     </ion-tabs>
 </template>
+
 <style>
 .tab-bar {
     display: none;
@@ -36,8 +22,15 @@
 }
 </style>
 <script>
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { chevronDownOutline, ellipse, grid, boat, cash, clipboard, business } from 'ionicons/icons';
+import {
+    IonTabBar,
+    IonTabButton,
+    IonTabs,
+    IonLabel,
+    IonIcon,
+    IonRouterOutlet,
+} from '@ionic/vue';
+import { chevronDownOutline, grid, boat, cash, clipboard } from 'ionicons/icons';
 
 export default {
     name: 'Tabs',
@@ -47,20 +40,17 @@ export default {
         IonTabBar,
         IonTabButton,
         IonIcon,
-        IonPage,
         IonRouterOutlet,
     },
     setup() {
         const items = [
-            { name: 'Home', link: '/student/dashboard', icon: grid },
-            { name: 'Classroom', link: '/student/dashboard', icon: clipboard },
-            { name: 'Payment', link: '/student/dashboard', icon: cash },
-            { name: 'Onboard', link: '/student/dashboard', icon: boat }
-        ]
+            { name: 'Home', tab: 'home', link: '/student/home', icon: grid },
+            { name: 'Classroom', tab: 'classroom', link: '/student/classroom', icon: clipboard },
+            { name: 'Payment', tab: 'payment', link: '/student/payment', icon: cash },
+            { name: 'Onboard', tab: 'onboard', link: '/student/onboard', icon: boat },
+        ];
         return {
-            ellipse,
-            chevronDownOutline,
-            items
+            items,
         };
     },
 };

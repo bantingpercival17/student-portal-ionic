@@ -39,7 +39,7 @@ export class RouteModel {
     }
     studentUserMiddleware(to, from, next) {
         if (to.meta.user !== 'student') {
-            next('/student/dashboard')
+            next('/student/home')
         } else {
             next()
         }

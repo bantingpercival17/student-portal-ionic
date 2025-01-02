@@ -1,7 +1,7 @@
 <template>
     <ion-header>
         <ion-toolbar class="iq-navbar py-lg-0">
-            <ion-buttons slot="start">
+            <ion-buttons slot="start" class="nav-buttom">
                 <ion-menu-button></ion-menu-button>
             </ion-buttons>
             <ion-buttons slot="start">
@@ -20,7 +20,13 @@
         </ion-toolbar>
     </ion-header>
 </template>
-
+<style>
+@media (max-width: 500px) {
+    .nav-buttom {
+        display: none;
+    }
+}
+</style>
 <script>
 import { IonHeader, IonToolbar, IonButton, IonButtons, IonMenu, IonMenuButton, IonIcon, IonTitle, IonBreadcrumb, IonLabel } from '@ionic/vue';
 import { grid, menu } from 'ionicons/icons';
@@ -41,13 +47,6 @@ export default {
         fullsidebar: { type: Boolean, default: false },
         pageTitle: { type: String }
     },
-    /*  computed: {
-         ...mapGetters('auth', {
-             token: GET_USER_TOKEN,
-             profilePicture: GET_USER_IMAGE,
-             name: GET_USER_NAME
-         })
-     }, */
     methods: {
         ...mapActions('auth', {
             logout: LOGOUT_ACTION

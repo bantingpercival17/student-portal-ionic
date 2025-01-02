@@ -104,7 +104,7 @@ export default {
             }
             try {
                 await this.login(data)
-                this.$router.push('/student/dashboard')
+                this.$router.push('/student/home')
             } catch (error) {
                 this.errorMessage = error
 
