@@ -39,12 +39,12 @@ const router = createRouter({
     routes,
 });
 
-/* // Wait for AUTO_LOGIN_ACTION to complete
+// Wait for AUTO_LOGIN_ACTION to complete
 store.dispatch(`auth/${AUTO_LOGIN_ACTION}`).then(() => {
     console.log('Auto login completed');
 }).catch(err => {
     console.error('Error during auto login:', err);
-}); */
+});
 
 // Router navigation guard
 router.beforeEach((to, from, next) => {
@@ -56,10 +56,10 @@ router.beforeEach((to, from, next) => {
         document.title = `${to.meta.name || 'Default Title'} - Baliwag Maritime Academy, Inc.`;
         console.log(isAuthType)
         // Authenticated user navigation
-        if (isAuth) {
+        /* if (isAuth) {
             if (isAuthType === 'student') {
                 routeModel.studentUserMiddleware(to, from, next);
-            } else (isAuthType === 'applicant') {
+            } else {
                 routeModel.applicantUserMiddleware(to, from, next);
             }
         } else {
@@ -69,7 +69,8 @@ router.beforeEach((to, from, next) => {
             } else {
                 next();
             }
-        }
+        } */
+        next()
     } catch (error) {
         next('/error'); // Cancel navigation on error
     }

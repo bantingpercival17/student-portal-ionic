@@ -1,6 +1,10 @@
 <template>
+    <div class="mb-3 d-block d-md-none">
+        <button @click="goBack" class="m-3 badge bg-primary">
+            <i class="bi bi-arrow-left"></i> Back
+        </button>
+    </div>
     <div class="row m-0 align-items-center vh-100">
-
         <div class="col-lg-5 col-md-12">
             <div class="card-body">
                 <div class="text-center">
@@ -71,6 +75,9 @@ export default {
         }),
         async getToken() {
             return await axios.get('/token')
+        },
+        goBack() {
+            this.$router.go(-1); // Navigate to the previous page
         },
         async forgetPassword() {
 

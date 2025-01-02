@@ -91,12 +91,11 @@ export default {
                     password: payload.password
                 })
                 if (response.status === 200) {
-                    const userName = payload.userType === 'student' ? response.data.student.first_name : response.data.student.account.name
                     const tokenData = {
                         userId: response.data.student.id,
                         email: response.data.email,
                         name: userName,
-                        userType: payload.userType,
+                        userType: 'student',
                         token: response.data.token,
                         image: response.data.profile_picture
                     }
