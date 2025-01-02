@@ -91,14 +91,14 @@ export default {
                     password: payload.password
                 })
                 if (response.status === 200) {
-                    const userName = payload.userType === 'student' ? response.data.student.account.student.first_name : response.data.student.account.name
+                    const userName = payload.userType === 'student' ? response.data.student.first_name : response.data.student.account.name
                     const tokenData = {
-                        userId: response.data.student.account.student_id,
-                        email: response.data.student.account.email,
+                        userId: response.data.student.id,
+                        email: response.data.email,
                         name: userName,
                         userType: payload.userType,
                         token: response.data.token,
-                        image: response.data.student.profile_picture
+                        image: response.data.profile_picture
                     }
                     localStorage.setItem('userData', JSON.stringify(tokenData))
                     context.commit(SET_USER_TOKEN_MUTATION, tokenData)

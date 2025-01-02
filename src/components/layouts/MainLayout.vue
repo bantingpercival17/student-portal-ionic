@@ -9,12 +9,14 @@
                 </StudentNavigationBar>
             </ion-header>
             <ion-content class="ion-padding">
-                <router-view></router-view>
+                <!-- <router-view></router-view> -->
+                <BottomTabs />
             </ion-content>
         </ion-page>
     </ion-split-pane>
 </template>
 <script>
+import BottomTabs from '../widgets/BottomTabs.vue';
 import StudentNavigationBar from '../widgets/StudentNavigationBar.vue';
 import StudentSideNavigationBar from '../widgets/StudentSideNavigation/StudentSideNavigationBar.vue';
 
@@ -34,7 +36,8 @@ export default {
         IonTitle,
         IonToolbar,
         IonIcon,
-        IonSplitPane
+        IonSplitPane,
+        BottomTabs
     },
     data() {
         return {

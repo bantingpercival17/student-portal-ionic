@@ -1,4 +1,4 @@
-export const studentRoute = (prop) => [{
+export const studentRoutev1 = (prop) => [{
     path: '/',
     name: prop + '.dashboard',
     meta: {
