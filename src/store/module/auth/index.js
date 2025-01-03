@@ -90,7 +90,7 @@ export default {
                     email: payload.email,
                     password: payload.password
                 })
-                if (response.status === 200) {
+                if (response && response.data) {
                     const userName = payload.userType === 'student' ? response.data.student.first_name : response.data.student.account.name
                     const tokenData = {
                         userId: response.data.student.id,
@@ -103,16 +103,18 @@ export default {
                     localStorage.setItem('userData', JSON.stringify(tokenData))
                     context.commit(SET_USER_TOKEN_MUTATION, tokenData)
                     console.log('Save Detials')
+                } else {
+                    const errorMessage = 'Response is undefined or missing data.'
+                    throw errorMessage
                 }
             } catch (error) {
                 console.log(error)
-                const errorMessage = LoginValidation.serverError(error.response)
-                /* const errorMessage = 'Server Offline' */
-                console.log(errorMessage)
+                // const errorMessage = LoginValidation.serverError(error.response)
+                const errorMessage = 'API call failed:' + error.message
                 throw errorMessage
             }
         },
-        async [APPLICANT_REGISTRATION_ACTION](context, payload) {
+        async[APPLICANT_REGISTRATION_ACTION](context, payload) {
             let response = ''
             try {
                 response = await axios.post('applicant/register', payload)

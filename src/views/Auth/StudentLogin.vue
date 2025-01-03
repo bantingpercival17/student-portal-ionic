@@ -9,6 +9,7 @@
                 </div>
                 <h2 class="mb-2 text-center"><b>STUDENT PORTAL</b></h2>
                 <p class="text-center">SIGN IN</p>
+                <p class="text-center">{{ server }}</p>
                 <form @submit.prevent="onLogin" class="row">
                     <div class="">
                         <div class="col-lg-12">
@@ -51,6 +52,7 @@ import { mapActions } from 'vuex'
 import { LOGIN_ACTION } from '@/store/storeConstants.js'
 import InputComponent from '@/components/InputComponents.vue'
 import LoginValidation from '@/services/validation/LoginValidation'
+import { ApiController } from '../../controller/ApiController';
 export default {
     name: 'StudentLoginPage',
     components: {
@@ -65,7 +67,8 @@ export default {
             message: [],
             errorMessage: '',
             url: '',
-            crsf: ''
+            crsf: '',
+            server: axios.defaults.baseURL
         }
     },
     async mounted() {
@@ -76,6 +79,9 @@ export default {
         })
         this.url = axios.defaults.baseURL
         this.crsf = axios.defaults.xsrfHeaderName
+    },
+    async created() {
+        this.apiController = new ApiController()
     },
     methods: {
         ...mapActions('auth', {
