@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
         document.title = `${to.meta.name} - Baliwag Maritime Academy, Inc.`;
         console.log(isAuthType)
         // Authenticated user navigation
-        /* if (isAuth) {
+        if (isAuth) {
             if (isAuthType === 'student') {
                 routeModel.studentUserMiddleware(to, from, next);
             } else {
@@ -70,8 +70,8 @@ router.beforeEach((to, from, next) => {
             } else {
                 next();
             }
-        } */
-        next()
+        }
+        // next()
     } catch (error) {
         next('/error'); // Cancel navigation on error
     }

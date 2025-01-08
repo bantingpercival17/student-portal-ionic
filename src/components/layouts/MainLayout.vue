@@ -1,18 +1,19 @@
 <template>
-    <ion-split-pane when="(min-width: 500px)" content-id="main-content">
-        <StudentSideNavigationBar  class="nav-buttom" :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
+    <ion-split-pane v-if="!isMobile" when="(min-width: 500px)" content-id="main-content">
+        <StudentSideNavigationBar class="nav-buttom" :minisidebar="sidebarmini" @makeminisidebar="onsidebarmini">
         </StudentSideNavigationBar>
         <ion-page id="main-content">
             <ion-header>
-                <StudentNavigationBar :fullsidebar="sidebarmini" @makefullsidebar="onfullsidebar"
+                <StudentNavigationBar class="nav-buttom" :fullsidebar="sidebarmini" @makefullsidebar="onfullsidebar"
                     :pageTitle="headerTitle">
                 </StudentNavigationBar>
             </ion-header>
             <ion-content class="ion-padding">
-                <ion-router-outlet id="main"></ion-router-outlet>
+                <ion-router-outlet></ion-router-outlet>
             </ion-content>
         </ion-page>
     </ion-split-pane>
+    <ion-router-outlet v-else></ion-router-outlet>
 </template>
 <style>
 .tab-bar {
@@ -61,7 +62,7 @@ export default {
             menuSide: 'start', // 'start' or 'end', depending on where you want the menu to appear
             menuContentId: 'main-content',
             menuSwipeGesture: true,
-
+            isMobile: false,
 
         }
     },
@@ -69,6 +70,13 @@ export default {
         headerTitle() {
             return this.$route.meta.name
         }
+    },
+    created() {
+        this.checkMobile();
+        window.addEventListener("resize", this.checkMobile);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.checkMobile);
     },
     methods: {
         toggleMenu() {
@@ -79,7 +87,11 @@ export default {
         },
         onfullsidebar(e) {
             this.sidebarmini = e
-        }
+        },
+        checkMobile() {
+            this.isMobile = window.innerWidth <= 500;
+            console.log(this.isMobile)
+        },
     }
 }
 </script>

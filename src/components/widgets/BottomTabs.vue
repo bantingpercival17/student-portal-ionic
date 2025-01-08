@@ -1,6 +1,6 @@
 <template>
     <ion-tabs>
-        <ion-router-outlet></ion-router-outlet>
+        <ion-router-outlet />
         <ion-tab-bar slot="bottom" class="tab-bar">
             <ion-tab-button v-for="(item, index) in items" :key="index" :tab="item.tab" :href="item.link">
                 <ion-icon :icon="item.icon" />

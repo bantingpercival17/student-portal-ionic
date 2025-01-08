@@ -39,6 +39,22 @@ export class ApiController {
 
             });
     }
+    async retrieveDataGET(apiLink, columnName) {
+        return axios.get(apiLink, {
+            headers: {
+                Authorization: 'Bearer ' + this.token
+            }
+        })
+            .then(response => {
+                // Return response for chaining
+                return response.data[columnName];
+            })
+            .catch(error => {
+                return []
+                throw error; // Rethrow to allow `.catch` in the component
+
+            });
+    }
     async retrieveFile(model, data) {
         const links = {
             FormDocuments: '/forms/retrive-file',
