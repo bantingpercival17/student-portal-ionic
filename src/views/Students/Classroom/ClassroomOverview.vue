@@ -8,9 +8,9 @@
                 </ion-button>
                 <ion-popover trigger="dropdown-button" dismiss-on-select="true" alignment="center" class="wide-popover">
                     <ion-list>
-                        <ion-item class="text-center" v-for='item in enrollmentHistory' :key='item' :value='item.id'
-                            button>
-                            {{ academicName(item.academic) }}
+                        <ion-item class="text-center" v-for='item in enrollmentHistory' :key='item.id' :value='item.id'
+                            button @click="changeSubjectList(item)">
+                            {{ academicName(item) }}
                         </ion-item>
                     </ion-list>
                 </ion-popover>
@@ -36,6 +36,8 @@
 
                 <SubjectListView v-if="selectedTab === 'subjects'" :subjectLists="subjectLists"
                     :apiController="apiController" />
+                <SemestralGradeView v-if="selectedTab === 'semestral-grades'" :subjectLists="subjectLists"
+                    :apiController="apiController" />
             </div>
             <div v-else>
                 <SubjectsLoading />
@@ -43,31 +45,19 @@
         </ion-content>
     </ion-page>
 </template>
-<style>
-.wide-popover {
-    --min-width: 90%;
-    /* Make the popover span the full width */
-    --max-width: 90%;
-    /* Ensure it doesn't exceed the full width */
-}
-
-.wide-popover ion-list {
-    width: 100%;
-    /* Ensure the list inside the popover also spans the full width */
-}
-</style>
 <script>
-import { IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, loadingController, IonRefresher, IonRefresherContent, IonCardHeader, IonSpinner, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, loadingController, IonRefresher, IonRefresherContent, IonCardHeader, IonSpinner, IonGrid, IonCol, IonRow, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
 import SubjectsLoading from '@/components/widgets/PreLoadingLayout/SubjectsLoading.vue'
 import { ApiController } from '../../../controller/ApiController';
 import { chevronDownOutline, grid, clipboard } from 'ionicons/icons';
 import SubjectListView from '@/views/Students/Classroom/WidgetScreen/SubjectListView.vue'
+import SemestralGradeView from '@/views/Students/Classroom/WidgetScreen/SemestralGradeView.vue'
 export default {
     name: 'ClassroomOverview',
     components: {
         IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, IonCardHeader,
-        IonSpinner, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel,
-        loadingController, IonRefresher, IonRefresherContent, SubjectsLoading, IonCardHeader, SubjectListView
+        IonSpinner, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonGrid, IonCol, IonRow,
+        loadingController, IonRefresher, IonRefresherContent, SubjectsLoading, IonCardHeader, SubjectListView, SemestralGradeView
     },
     data() {
         const items = [
@@ -96,17 +86,18 @@ export default {
     methods: {
         async handleScroll(event) {
             event.target.complete();
-            const parameter = this.$route.query.key
+            this.loadData()
         },
         async loadData() {
-            const parameter = this.$route.query.key
+            this.isLoading = true
+            const parameter = this.$route.query.enrollment
             const link = parameter ? `student/subject-lists?key=${parameter}` : 'student/subject-lists'
             const classroom = await this.apiController.retrieveDataGET(link, 'classroom')
             this.enrollmentHistory = classroom.enrollmentHistory
-            this.currentAcademic = this.academicName(classroom.enrollment.academic)
-            console.log(classroom.section)
-            if (classroom.section) {
-                this.subjectLists = classroom.section.subject_classes
+            this.currentAcademic = this.academicName(classroom.currentEnrollment.academic)
+            console.log(classroom.currentEnrollment.student_section_v2)
+            if (classroom.currentEnrollment.student_section_v2) {
+                this.subjectLists = classroom.subjectLists
             }
             this.isLoading = false
 
@@ -121,6 +112,29 @@ export default {
         toggleDropdown() {
             this.dropdownVisible = !this.dropdownVisible;
         },
+        async changeSubjectList(selectedItem) {
+            this.isLoading = true
+            const link = `student/subject-lists?key=${this.encrypt(selectedItem.id)}`;
+            const classroom = await this.apiController.retrieveDataGET(link, 'classroom');
+            this.currentAcademic = this.academicName(classroom.currentEnrollment.academic)
+            if (classroom) {
+                this.subjectLists = classroom.subjectLists;
+            }
+            this.isLoading = false
+        },
     }
 }
 </script>
+<style>
+.wide-popover {
+    --min-width: 90%;
+    /* Make the popover span the full width */
+    --max-width: 90%;
+    /* Ensure it doesn't exceed the full width */
+}
+
+.wide-popover ion-list {
+    width: 100%;
+    /* Ensure the list inside the popover also spans the full width */
+}
+</style>
