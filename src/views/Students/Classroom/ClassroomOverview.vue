@@ -2,19 +2,26 @@
     <ion-page>
         <ion-header>
             <ion-toolbar>
-                <!-- <ion-title slot="start" class="fw-bolder text-primary">CLASSROOM</ion-title> -->
-                <ion-button expand="block" class="p-2" id="dropdown-button">
-                    <b> {{ currentAcademic }} </b> <ion-icon :icon="chevronDownOutline"></ion-icon>
-                </ion-button>
-                <ion-popover trigger="dropdown-button" dismiss-on-select="true" alignment="center" class="wide-popover">
-                    <ion-list>
-                        <ion-item class="text-center" v-for='item in enrollmentHistory' :key='item.id' :value='item.id'
-                            button @click="changeSubjectList(item)">
-                            {{ academicName(item) }}
-                        </ion-item>
-                    </ion-list>
-                </ion-popover>
+                <ion-title class="fw-bolder text-primary">
+                    CLASSROOM
+                </ion-title>
+                <ion-buttons v-if="!isMobile" slot="end">
+                    <ion-button id="dropdown-button" class="modern-dropdown">
+                        <b>{{ currentAcademic }}</b>
+                        <ion-icon :icon="chevronDownOutline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
             </ion-toolbar>
+            <ion-popover trigger="dropdown-button" dismiss-on-select="true" class="wide-popover">
+                <ion-list>
+                    <ion-item class="dropdown-item-active" v-for="item in enrollmentHistory" :key="item.id"
+                        :value="item.id" button @click="changeSubjectList(item)">
+                        <ion-label> {{ item.semester.toUpperCase() }} <br>
+                            {{ item.school_year }}
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-popover>
         </ion-header>
 
         <ion-content>
@@ -42,11 +49,27 @@
             <div v-else>
                 <SubjectsLoading />
             </div>
+            <!-- Floating Action Button for Academic -->
+            <ion-fab v-if="isMobile" vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button id="dropdown-button-float" color="primary">
+                    <ion-icon :icon="chevronDownOutline"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+            <!-- Popover for Academic List -->
+            <ion-popover trigger="dropdown-button-float" dismiss-on-select="true" alignment="center"
+                class="wide-popover">
+                <ion-list>
+                    <ion-item class="text-center" v-for="item in enrollmentHistory" :key="item.id" :value="item.id"
+                        button @click="changeSubjectList(item)">
+                        {{ academicName(item) }}
+                    </ion-item>
+                </ion-list>
+            </ion-popover>
         </ion-content>
     </ion-page>
 </template>
 <script>
-import { IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, loadingController, IonRefresher, IonRefresherContent, IonCardHeader, IonSpinner, IonGrid, IonCol, IonRow, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, loadingController, IonRefresher, IonRefresherContent, IonCardHeader, IonSpinner, IonGrid, IonCol, IonRow, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonButtons, IonFab, IonFabButton } from '@ionic/vue';
 import SubjectsLoading from '@/components/widgets/PreLoadingLayout/SubjectsLoading.vue'
 import { ApiController } from '../../../controller/ApiController';
 import { chevronDownOutline, grid, clipboard } from 'ionicons/icons';
@@ -55,7 +78,7 @@ import SemestralGradeView from '@/views/Students/Classroom/WidgetScreen/Semestra
 export default {
     name: 'ClassroomOverview',
     components: {
-        IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, IonCardHeader,
+        IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonBadge, IonCardHeader, IonButtons, IonFab, IonFabButton,
         IonSpinner, IonPopover, IonList, IonItem, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonGrid, IonCol, IonRow,
         loadingController, IonRefresher, IonRefresherContent, SubjectsLoading, IonCardHeader, SubjectListView, SemestralGradeView
     },
@@ -74,11 +97,13 @@ export default {
             dropdownOpen: false,
             dropdownVisible: true,
             chevronDownOutline, items,
-            selectedTab: 'subjects'
+            selectedTab: 'subjects',
+            isMobile: false,
         }
     },
     async created() {
         this.apiController = new ApiController();
+        this.isMobile = window.innerWidth <= 500;
     },
     async mounted() {
         this.loadData()
@@ -121,20 +146,48 @@ export default {
                 this.subjectLists = classroom.subjectLists;
             }
             this.isLoading = false
-        },
+        }
     }
 }
 </script>
-<style>
-.wide-popover {
-    --min-width: 90%;
-    /* Make the popover span the full width */
-    --max-width: 90%;
-    /* Ensure it doesn't exceed the full width */
+<style scoped>
+.modern-dropdown {
+    /* background-color: var(--ion-color-light); */
+    color: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
 }
 
-.wide-popover ion-list {
-    width: 100%;
-    /* Ensure the list inside the popover also spans the full width */
+.modern-dropdown:hover {
+    background-color: var(--ion-color-primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.dropdown-item,
+.active {
+    --background: var(--ion-color-primary);
+    /* Highlight background */
+    --color: white;
+    /* Highlight text color */
+    font-weight: bold;
+    /* Optional for emphasis */
+    border-radius: 4px;
+    /* Optional for rounded appearance */
+}
+
+.dropdown-item:hover {
+    --background: var(--ion-color-primary);
+    /* Highlight background */
+    --color: white;
+    /* Highlight text color */
+    font-weight: bold;
+    /* Optional for emphasis */
+    border-radius: 4px;
+    /* Optional for rounded appearance */
 }
 </style>

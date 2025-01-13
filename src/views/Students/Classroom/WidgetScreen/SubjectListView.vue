@@ -1,7 +1,7 @@
 <template>
     <div v-if="subjectLists.length > 0" class="page-content">
         <ion-grid>
-            <ion-row class="ion-justify-content-center">
+            <ion-row>
                 <ion-col size="12" size-md="6" size-lg="4" v-for="(data, index) in subjectLists" :key="index">
                     <ion-card class="google-classroom-card">
                         <div class="card-image" :style="{ backgroundImage: `url(${data.subjectTeacherImage})` }"></div>
@@ -17,9 +17,6 @@
             </ion-row>
         </ion-grid>
     </div>
-
-
-
     <div v-else class="">
         <ion-card>
             <ion-card-header>

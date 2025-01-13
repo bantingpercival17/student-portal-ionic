@@ -90,7 +90,6 @@ export default {
         },
         checkMobile() {
             this.isMobile = window.innerWidth <= 500;
-            console.log(this.isMobile)
         },
     }
 }

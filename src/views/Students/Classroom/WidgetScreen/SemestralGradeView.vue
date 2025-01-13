@@ -1,22 +1,22 @@
 <template>
-     <div v-if="subjectLists.length > 0" class="page-content">
+    <div v-if="subjectLists.length > 0" class="page-content">
         <ion-grid>
-            <ion-row class="ion-justify-content-center">
+            <ion-row>
                 <ion-col size="12" size-md="6" size-lg="4" v-for="(data, index) in subjectLists" :key="index">
                     <ion-card class="google-classroom-card">
-                        <div class="card-image" >
+                        <div class="card-image">
                             <ion-grid>
-                                            <ion-row>
-                                                <ion-col class="text-center">
-                                                    <small class="fw-bold text-muted">Units</small>
-                                                    <h2 class="fw-bolder text-dark">{{ data.subjectUnit }}</h2>
-                                                </ion-col>
-                                                <ion-col class="text-center">
-                                                    <small class="fw-bold text-muted">Grade</small>
-                                                    <h2 class="fw-bolder text-success">{{ data.subjectGrade }}</h2>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
+                                <ion-row>
+                                    <ion-col class="text-center">
+                                        <small class="fw-bold text-muted">Units</small>
+                                        <h2 class="fw-bolder text-dark">{{ data.subjectUnit }}</h2>
+                                    </ion-col>
+                                    <ion-col class="text-center">
+                                        <small class="fw-bold text-muted">Grade</small>
+                                        <h2 class="fw-bolder text-success">{{ data.subjectGrade }}</h2>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </div>
                         <ion-card-content class="card-content-overlay">
                             <ion-text>
